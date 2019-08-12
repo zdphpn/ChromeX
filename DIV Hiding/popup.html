@@ -1,0 +1,104 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta charset="UTF-8">
+<style type="text/css">
+	*{
+		margin:0;
+		padding:0;
+	}
+	body{
+		width:333px;
+		height:222px;
+		color:#345;
+		font-family:Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,\\5FAE\8F6F\96C5\9ED1,Arial,sans-serif;
+		font-size:10pt;
+	}
+	div {
+    	display: block;
+	}
+	a{
+		cursor:pointer;
+		text-decoration:blink;
+		color:#0F997A;
+		outline:none;
+	}
+	table{
+		width:100%;
+		border:0;
+		border-spacing:0;
+	}
+	tr{
+		height:20px;	
+	}
+	#about{
+    	padding:15px 20px 10px 20px;
+	}
+	#header{
+		height:70px;
+		padding-bottom:15px;
+	}
+	#logo{
+		float:left;	
+		width:70px;
+		height:70px;
+	}
+	#logotext{
+		float:left;
+		margin:0px 10px;
+	}
+	#title{
+		font-size:24px;
+	}
+	#subtitle{
+		font-size:16px;
+	}
+	#body{
+		height:120px;	
+	}
+	#footer{
+		height:15px;
+		color:#789;
+		padding-top:10px;
+		border-top:solid 1px #eef;
+		white-space:nowrap;
+	}
+	#copyright{
+    	text-align:center;
+	}
+	
+
+</style>
+</head>
+
+<body>
+
+<div id="about">
+
+<div id="header">
+    <div id="logo">
+        <img src="images/icon128.png" width="100%">
+    </div>
+    <div id="logotext">
+        <p id="title">DIV 隐藏(Hiding)</p>
+        <p id="subtitle">版本：<span>1.0.0</span></p>
+    </div>
+</div>
+<div id="body">
+    <table id="list">
+    <tr><td><a id="again">隐藏条目</a></td><td><a target="_blank" href="options.html">匹配规则</a></td><td></td></tr>
+    <tr><td><xmp><div id="xxx"> ...</xmp></td><td><xmp>^<div id="xxx"></xmp></td><td><input type="checkbox" id="xxx"/></td></tr>
+    <tr><td><xmp><div id="xxx"> ...</xmp></td><td><xmp>^<div id="xxx"></xmp></td><td><input type="checkbox" id="xxx"/></td></tr>
+    </table>
+    <script src="js/popup.js"></script>
+</div>
+<div id="footer">
+    <div id="copyright">
+    	© 2019 <a>DIV 隐藏(Hiding)</a>
+    </div>
+</div>
+
+</div>
+
+</body>
+</html>

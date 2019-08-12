@@ -1,0 +1,160 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta charset="UTF-8">
+<style type="text/css">
+	*{
+		margin:0;
+		padding:0;
+	}
+	body{
+		width:680px;
+		margin:auto;
+		font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+	}
+	div {
+    	display: block;
+	}
+	#header{
+		background:#0F997A;
+		margin-top:20px;
+		color:#FFF;	
+	    border-radius:5px 5px 0px 0px;
+	}
+	#header h1{
+		text-align:center;
+		padding:15px;	
+		font-size:18px;
+		font-weight:700;
+		font-family:'Open Sans',sans-serif;
+	}
+	.rggroup{
+		margin-bottom:10px;	
+	}
+	.rghost{
+		padding:10px 10px;	
+		border:1px #DDD solid;
+		border-top:none;
+		background:#F0F0F0;
+		height:38px;
+	}
+	.rghost .text{
+		font-size:18px;
+		float:left;
+		padding:10px;
+	}
+	.rghost input{
+		font-size:18px;
+		width:500px;
+	}
+	
+	.rghost .icon{
+		float:right;
+		padding:10px;
+		cursor:pointer;
+	}
+	.rghost .icon:hover{
+		padding:11px 9px 9px 11px;
+	}
+	
+	.rgitem{
+		padding:10px 11px 10px 30px;
+		border:1px #EEE solid;
+		height:28px;
+	}
+	.rgitem .text{
+		font-size:16px;
+		padding:5px;
+		float:left;
+	}
+	.rgitem input{
+		font-size:16px;
+		width:485px;
+	}
+	.rgitem .icon{
+		float:right;
+		padding:5px 9px 5px 11px;
+		cursor:pointer;
+	}
+	.rgitem .icon:hover{
+		padding:6px 8px 4px 12px;
+	}
+	
+	
+	#footer{
+		background:#0F997A;
+		color:#FFF;	
+	    border-radius:0px 0px 5px 5px;
+	}
+	#footer h1{
+		text-align:center;
+		padding:15px;	
+		font-size:18px;
+		font-weight:700;
+		font-family:'Open Sans',sans-serif;
+		cursor:pointer;
+	}
+	
+	
+	.rgitemadd,#rghostadd{
+		display:none;
+	}
+
+</style>
+</head>
+
+<body>
+
+<div id="options">
+
+<div id="header">
+<h1>DIV 隐藏(Hiding) 匹配规则</h1>
+</div>
+<div id="body">
+    <div class="rggroup">
+        <div class="rghost">
+            <div class="text">*://www.baidu.com</div>
+            <div class="icon rghost_delete">
+                <img src="images/delete.png" width="20px">
+            </div>
+            <div class="icon rghost_addrgitem">
+                <img src="images/add.png" width="22px">
+            </div>
+        </div>
+        <div class="rgitem rgitemadd">
+            <div class="text"><input type="text"/></div>
+            <div class="icon rgitemadd_cancel">
+                <img src="images/cancel.png" width="20px">
+            </div>
+            <div class="icon rgitemadd_ok">
+                <img src="images/ok.png" width="22px">
+            </div>
+        </div>
+        <div class="rglist">
+            <div class="rgitem">
+                <div class="text"><xmp>^<div class="xxxxx"></xmp></div>
+                <div class="icon rgitem_delete">
+                    <img src="images/delete.png" width="20px">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="rghostadd" class="rghost">
+	<div class="text"><input id="rghostaddinput" type="text"/></div>
+    <div id="rghostaddcancel" class="icon">
+        <img src="images/cancel.png" width="20px">
+    </div>
+    <div id="rghostaddok" class="icon">
+        <img src="images/ok.png" width="20px">
+    </div>
+</div>
+<div id="footer">
+	<h1>加载完毕，点击添加</h1>
+</div>
+<script src="js/options.js"></script>
+
+</div>
+
+</body>
+</html>
