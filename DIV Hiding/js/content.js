@@ -12,20 +12,25 @@ function checkChildrens(ele)
 		//console.log(elehtml.substring(0,16));
 		//if(elehtml.substring(0,4)=="<div")
 		{
-			for(var j=0;j<regexList.length;j++)
+			for(var j=0;regexList!=null&&j<regexList.length;j++)
 			{
-				var reg=new RegExp(regexList[j],"i");
-				var temp=elehtml;
-				if(reg.test(temp))
+				if(regexList[j]!=null)
 				{
-					
-					childList[popupCount]=ele.children[i];
-					ele.children[i].style.setProperty('display','none','important');
-					
-					popupShow+="<tr><td><xmp>"+elehtml.substring(0,16)+"...</xmp></td><td><xmp>"+regexList[j].substring(0,16)+"</xmp></td><td>"+"<input type=\"checkbox\" id=\"cb"+popupCount.toString()+"\"/></td></tr>";
-					popupCount++;
-					
-					break;
+					var reg=new RegExp(regexList[j],"i");
+					var temp=elehtml;
+					if(reg.test(temp))
+					{
+						
+						childList[popupCount]=ele.children[i];
+						ele.children[i].style.setProperty('display','none','important');
+						if(popupCount<=4)
+						{
+							popupShow+="<tr><td><xmp>"+elehtml.substring(0,16)+"...</xmp></td><td><xmp>"+regexList[j].substring(0,16)+"</xmp></td><td>"+"<input type=\"checkbox\" id=\"cb"+popupCount.toString()+"\"/></td></tr>";
+						}
+						popupCount++;
+						
+						break;
+					}
 				}
 			}
 		}
@@ -34,6 +39,7 @@ function checkChildrens(ele)
 }
 
 var regexList;
+var hostName;
 var hostList;
 
 var regex_demohost="^https://www.baidu.com/s";
@@ -47,18 +53,78 @@ function checkhost()
 	childList.length=0;
 	deep=0;
 
-	chrome.storage.local.get('hostlist', function(result1) {
-		console.log('hostlist:'+result1.hostlist);
-		if(result1.hostlist!=null)
-		{
-			hostList=result1.hostlist;
-		}
-		else
-		{
-			hostList=new Array();
-		}
-		hostList[hostList.length]=regex_demohost;
-		
+	if(hostList==null)
+	{
+		chrome.storage.local.get('hostlist', function(result1) {
+			console.log('hostlist:'+result1.hostlist);
+			if(result1.hostlist!=null)
+			{
+				hostList=result1.hostlist;
+			}
+			else
+			{
+				hostList=new Array();
+			}
+			hostList[hostList.length]=regex_demohost;
+			
+			var url=document.location.href;
+			console.log(url);
+			if(url!=null&&url!="")
+			{
+				var host;
+				for(var i=0;i<hostList.length;i++)
+				{
+					if(hostList[i]!=null)
+					{
+						var reg=new RegExp(hostList[i],"i");
+						if(reg.test(url))
+						{
+							host=hostList[i];
+							i=0;
+							break;
+						}
+					}
+				}
+				if(i>0)
+				{
+					chrome.runtime.sendMessage({badge:'null'});
+				}
+				else
+				{
+					host=host.toString();
+					if(hostName!=host)
+					{
+						hostName=host;
+						chrome.storage.local.get(host, function(result2) {
+							console.log(host+":"+result2[host]);
+							if(result2[host]!=null)
+							{
+								regexList=result2[host];
+							}
+							else
+							{
+								regexList=new Array();
+							}
+							if(host==regex_demohost)
+							{
+								regexList[regexList.length]=regex_demoitem1;
+								regexList[regexList.length]=regex_demoitem2;
+							}
+							checkChildrens(document.body);
+							chrome.runtime.sendMessage({badge:popupCount.toString()});
+						});
+					}
+					else
+					{
+						checkChildrens(document.body);
+						chrome.runtime.sendMessage({badge:popupCount.toString()});
+					}
+				}
+			}
+		});
+	}
+	else
+	{
 		var url=document.location.href;
 		console.log(url);
 		if(url!=null&&url!="")
@@ -66,12 +132,15 @@ function checkhost()
 			var host;
 			for(var i=0;i<hostList.length;i++)
 			{
-				var reg=new RegExp(hostList[i],"i");
-				if(reg.test(url))
+				if(hostList[i]!=null)
 				{
-					host=hostList[i];
-					i=0;
-					break;
+					var reg=new RegExp(hostList[i],"i");
+					if(reg.test(url))
+					{
+						host=hostList[i];
+						i=0;
+						break;
+					}
 				}
 			}
 			if(i>0)
@@ -81,31 +150,47 @@ function checkhost()
 			else
 			{
 				host=host.toString();
-				chrome.storage.local.get(host, function(result2) {
-					console.log(host+":"+result2[host]);
-					if(result2[host]!=null)
-					{
-						regexList=result2[host];
-					}
-					else
-					{
-						regexList=new Array();
-					}
-					if(host==regex_demohost)
-					{
-						regexList[regexList.length]=regex_demoitem1;
-						regexList[regexList.length]=regex_demoitem2;
-					}
+				if(hostName!=host)
+				{
+					hostName=host;
+					chrome.storage.local.get(host, function(result2) {
+						console.log(host+":"+result2[host]);
+						if(result2[host]!=null)
+						{
+							regexList=result2[host];
+						}
+						else
+						{
+							regexList=new Array();
+						}
+						if(host==regex_demohost)
+						{
+							regexList[regexList.length]=regex_demoitem1;
+							regexList[regexList.length]=regex_demoitem2;
+						}
+						checkChildrens(document.body);
+						chrome.runtime.sendMessage({badge:popupCount.toString()});
+					});
+				}
+				else
+				{
 					checkChildrens(document.body);
 					chrome.runtime.sendMessage({badge:popupCount.toString()});
-				});
+				}
 			}
 		}
-	});
+	}
 }
 
+window.onload=checkhost();
 
-checkhost();
+var observer = new MutationObserver(checkhost);
+var article = document.body;
+var options = {
+  'childList': true,
+  'attributes':true
+} ;
+observer.observe(article, options);
 
 
 

@@ -11,7 +11,7 @@ var rghost_icon="<div class=\"icon rghost_delete\"><img src=\"images/delete.png\
 var rglist_s="<div class=\"rglist\">";
 var rglist_item_s="<div class=\"rgitem\">";
 var rglist_item_text_s="<div class=\"text\">";
-var rglist_item_icon="<div class=\"icon rgitem_delete\"><img src=\"images/delete.png\" width=\"20px\"></div>";
+var rglist_item_icon="<div class=\"icon rgitem_delete\"><img src=\"images/cancel.png\" width=\"20px\"></div>";
 var rglist_itemadd="<div class=\"rgitem rgitemadd\"><div class=\"text\"><input type=\"text\"/></div><div class=\"icon rgitemadd_cancel\"><img src=\"images/cancel.png\" width=\"20px\"></div><div class=\"icon rgitemadd_ok\"><img src=\"images/ok.png\" width=\"22px\"></div></div>";
 
 var rgxxx_e="</div>";
@@ -27,6 +27,44 @@ function updataregex()
 		if(html!=null)
 		{
 			ele_body.innerHTML=html;
+			
+			var rghost_delete=document.getElementsByClassName('rghost_delete');
+			if(rghost_delete!=null&&rghost_delete.length>0)
+			{
+				for(var n=0;n<rghost_delete.length;n++)
+				{
+					rghost_delete[n].addEventListener('click',function(){
+						console.log(this);
+						var host=this.parentNode.firstChild.innerHTML;
+						chrome.storage.local.remove(host, function() {
+							console.log('remove '+host);
+						});
+						document.getElementById('body').removeChild(this.parentNode.parentNode);
+						chrome.storage.local.get('hostlist', function(result) {
+														
+							if(result.hostlist!=null&&result.hostlist.length>0)
+							{
+								for(var i=0;i<result.hostlist.length;i++)
+								{
+									if(result.hostlist[i]==host)
+									{
+										result.hostlist[i]=null;
+									}
+								}
+							}
+							chrome.storage.local.set({'hostlist':result.hostlist}, function() {
+								console.log('save hostlist:'+result.hostlist);
+								
+								var html=document.getElementById('body').innerHTML;
+								chrome.storage.local.set({"html":html}, function() {
+									console.log('save html:'+html);
+								});
+							});
+						});
+					});
+				}
+			}
+			
 			var rghost_addrgitem=document.getElementsByClassName('rghost_addrgitem');
 			if(rghost_addrgitem!=null&&rghost_addrgitem.length>0)
 			{
@@ -34,7 +72,7 @@ function updataregex()
 				{
 					rghost_addrgitem[n].addEventListener('click',function(){
 						console.log(this);
-						this.parentNode.nextSibling.firstChild.firstChild.value="";
+						this.parentNode.nextSibling.firstChild.firstChild.value="^";
 						this.parentNode.nextSibling.style.display="block";
 					});
 				}
@@ -116,7 +154,7 @@ function updataregex()
 
 updataregex();
 document.getElementById('footer').addEventListener('click',function(){
-
+	document.getElementById('rghostaddinput').value="^"
 	document.getElementById('rghostadd').style.display="block";
 });
 document.getElementById('rghostaddcancel').addEventListener('click',function(){
