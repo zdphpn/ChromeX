@@ -15,21 +15,7 @@
 
 ### OPTIONS页面
 管理匹配规则，使用正则表达匹配当前访问URL及其下的条目规则
-#### ^https://www.baidu.com/s
-* ^<div [\S\s]{5,50} style="display:block !important;visibility:visible !important
-* ^<div class="result c-container".*<span class="m ec_tuiguang_pplink">广告</span>
-#### ^https://www.so.com/s
-* ^<div id="e_haosou_fw_picture"
-* ^<a class="e_haosou_fw_bg_title"
-#### ^https://blog.csdn.net
-* ^<div id="dmp_ad_58"
-* ^<div id="kp_box_57"
-* ^<div class="csdn-tracking-statistics
-#### ^https://www.w3school.com.cn
-* ^<div id="ad"
-* ^<div id="ad_head"
-#### ^https://segmentfault.com
-* ^<ins class="adsbygoogle"
+https://github.com/zdphpn/ChromeX/blob/master/DIV%20Hiding/options.txt
 
 ### 说明
 前端新手，代码仅供参考
