@@ -1,0 +1,12 @@
+^https://www.so.com/s
+	^<div id="e_haosou_fw_picture"
+	^<a class="e_haosou_fw_bg_title"
+^https://blog.csdn.net
+	^<div id="dmp_ad_58"
+	^<div id="kp_box_57"
+	^<div class="csdn-tracking-statistics
+^https://www.w3school.com.cn
+	^<div id="ad"
+	^<div id="ad_head"
+^https://segmentfault.com
+	^<ins class="adsbygoogle"
