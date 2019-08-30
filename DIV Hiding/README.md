@@ -32,5 +32,4 @@
 * ^<ins class="adsbygoogle"
 
 ### 说明
-下载：https://github.com/zdphpn/ChromeX.git
 前端新手，代码仅供参考
