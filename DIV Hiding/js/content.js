@@ -6,6 +6,41 @@ var deep=0;
 function checkChildrens(ele)
 {
 	deep++;
+
+	if(ele.shadowRoot)
+	{
+	for(var i=0;i<ele.shadowRoot.children.length;i++)
+	{
+		var elehtml=ele.shadowRoot.children[i].outerHTML.toString();
+		//console.log(elehtml.substring(0,16));
+		//if(elehtml.substring(0,4)=="<div")
+		{
+			for(var j=0;regexList!=null&&j<regexList.length;j++)
+			{
+				if(regexList[j]!=null)
+				{
+					var reg=new RegExp(regexList[j],"i");
+					var temp=elehtml;
+					if(reg.test(temp))
+					{
+						ele.shadowRoot.children[i].style.setProperty('display','none','important');
+						if(popupCount<=4)
+						{
+							childList[popupCount]=ele.shadowRoot.children[i];
+							popupShow+="<tr><td><xmp>"+elehtml.substring(0,24)+"...</xmp></td><td><xmp>"+regexList[j].substring(0,24)+"</xmp></td><td>"+"<input type=\"checkbox\" id=\"cb"+popupCount.toString()+"\"/></td></tr>";
+						}
+						popupCount++;
+
+						break;
+					}
+				}
+			}
+		}
+		checkChildrens(ele.shadowRoot.children[i]);
+	}
+	}
+	else
+	{
 	for(var i=0;i<ele.children.length;i++)
 	{
 		var elehtml=ele.children[i].outerHTML.toString();
@@ -20,21 +55,21 @@ function checkChildrens(ele)
 					var temp=elehtml;
 					if(reg.test(temp))
 					{
-						
-						childList[popupCount]=ele.children[i];
 						ele.children[i].style.setProperty('display','none','important');
 						if(popupCount<=4)
 						{
-							popupShow+="<tr><td><xmp>"+elehtml.substring(0,16)+"...</xmp></td><td><xmp>"+regexList[j].substring(0,16)+"</xmp></td><td>"+"<input type=\"checkbox\" id=\"cb"+popupCount.toString()+"\"/></td></tr>";
+							childList[popupCount]=ele.children[i];
+							popupShow+="<tr><td><xmp>"+elehtml.substring(0,24)+"...</xmp></td><td><xmp>"+regexList[j].substring(0,24)+"</xmp></td><td>"+"<input type=\"checkbox\" id=\"cb"+popupCount.toString()+"\"/></td></tr>";
 						}
 						popupCount++;
-						
+
 						break;
 					}
 				}
 			}
 		}
 		checkChildrens(ele.children[i]);
+	}
 	}
 }
 
