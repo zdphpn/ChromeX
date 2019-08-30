@@ -6,13 +6,13 @@ var regex_demoitem2="^<div class=\"result c-container\".*<span class=\"m ec_tuig
 var rggroup_s="<div class=\"rggroup\">"
 var rghost_s="<div class=\"rghost\">"
 var rghost_text_s="<div class=\"text\">";
-var rghost_icon="<div class=\"icon rghost_delete\"><img src=\"images/delete.png\" width=\"20px\"></div><div class=\"icon rghost_addrgitem\"><img src=\"images/add.png\" width=\"22px\"></div>";
+var rghost_icon="<div class=\"icon rghost_delete\" title=\"删除这个网站\"><img src=\"images/delete.png\" width=\"20px\"></div><div class=\"icon rghost_addrgitem\" title=\"在该网站下添加一个匹配项\"><img src=\"images/add.png\" width=\"22px\"></div>";
 
 var rglist_s="<div class=\"rglist\">";
 var rglist_item_s="<div class=\"rgitem\">";
 var rglist_item_text_s="<div class=\"text\">";
-var rglist_item_icon="<div class=\"icon rgitem_delete\"><img src=\"images/cancel.png\" width=\"20px\"></div>";
-var rglist_itemadd="<div class=\"rgitem rgitemadd\"><div class=\"text\"><input type=\"text\"/></div><div class=\"icon rgitemadd_cancel\"><img src=\"images/cancel.png\" width=\"20px\"></div><div class=\"icon rgitemadd_ok\"><img src=\"images/ok.png\" width=\"22px\"></div></div>";
+var rglist_item_icon="<div class=\"icon rgitem_delete\" title=\"删除这个匹配项,暂不支持\"><img src=\"images/cancel.png\" width=\"20px\"></div>";
+var rglist_itemadd="<div class=\"rgitem rgitemadd\"><div class=\"text\"><input type=\"text\"/></div><div class=\"icon rgitemadd_cancel\" title=\"取消\"><img src=\"images/cancel.png\" width=\"20px\"></div><div class=\"icon rgitemadd_ok\" title=\"确认\"><img src=\"images/ok.png\" width=\"22px\"></div></div>";
 
 var rgxxx_e="</div>";
 
@@ -99,7 +99,7 @@ function updataregex()
 						console.log(this);
 						var regex=this.previousSibling.previousSibling.lastChild.value;
 						
-						if(regex!=null&&regex!="")
+						if(regex!=null&&regex.length>1)
 						{
 							var rglist=this.parentNode.nextSibling;
 							rglist.innerHTML=(rglist_item_s+rglist_item_text_s+"<xmp>"+regex+"</xmp>"+rgxxx_e+rglist_item_icon+rgxxx_e)+rglist.innerHTML;
@@ -164,7 +164,7 @@ document.getElementById('rghostaddcancel').addEventListener('click',function(){
 document.getElementById('rghostaddok').addEventListener('click',function(){
 
 	var host=document.getElementById('rghostaddinput').value;
-	if(host!=null&&host!="")
+	if(host!=null&&host.length>1)
 	{
 		document.getElementById('body').innerHTML+=(rggroup_s+rghost_s+rghost_text_s+host+rgxxx_e+rghost_icon+rgxxx_e+rglist_itemadd+rglist_s+rgxxx_e+rgxxx_e);
 		
