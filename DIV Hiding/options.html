@@ -18,6 +18,7 @@
 	#header{
 		background:#0F997A;
 		margin-top:20px;
+		padding-right:10px;
 		color:#FFF;	
 	    border-radius:5px 5px 0px 0px;
 	}
@@ -28,6 +29,15 @@
 		font-weight:700;
 		font-family:'Open Sans',sans-serif;
 	}
+	#header .icon{
+		float:right;
+		padding:10px;
+		cursor:pointer;
+	}
+	#header .icon:hover{
+		padding:11px 9px 9px 11px;
+	}
+	
 	.rggroup{
 		margin-bottom:10px;	
 	}
@@ -85,6 +95,7 @@
 		background:#0F997A;
 		color:#FFF;	
 	    border-radius:0px 0px 5px 5px;
+		margin-bottom:20px;
 	}
 	#footer h1{
 		text-align:center;
@@ -108,7 +119,14 @@
 <div id="options">
 
 <div id="header">
-<h1>DIV 隐藏(Hiding) 匹配规则</h1>
+	<h1>DIV 隐藏(Hiding) 匹配规则</h1>
+	<div id="save" class="icon">
+    	<img src="images/save.png" width="22px">
+	</div>
+    <div id="open" class="icon">
+    	<input type="file" id="input_open" style="display:none"/>
+    	<img src="images/open.png" width="22px">
+	</div>
 </div>
 <div id="body">
     <div class="rggroup">
