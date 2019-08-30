@@ -197,3 +197,85 @@ document.getElementById('rghostaddok').addEventListener('click',function(){
 		});
 	}
 });
+
+document.getElementById('open').addEventListener('click',function(){
+	document.getElementById('input_open').click();
+	
+	
+});
+document.getElementById('input_open').addEventListener('change',function(){
+	var file=document.getElementById('input_open').files[0];
+	console.log(file);
+	if(file){
+		var reader=new FileReader();
+	    
+	    reader.onloadend=function(e) {
+			//console.log(this.result);
+			
+			var line=this.result;
+			line=line.split("\r\n");
+			//console.log(line);
+			
+			var html=(rggroup_s+rghost_s+rghost_text_s+regex_demohost+rgxxx_e+rgxxx_e+rglist_itemadd+rglist_s+rglist_item_s+rglist_item_text_s+"<xmp>"+regex_demoitem1+"</xmp>"+rgxxx_e+rgxxx_e+rglist_item_s+rglist_item_text_s+"<xmp>"+regex_demoitem2+"</xmp>"+rgxxx_e+rgxxx_e);
+			
+			var hostlist=new Array();
+			var rglist=new Array();
+			var i=0,j=0,n=0;
+			for(i=0;i<line.length;i++){
+				//console.log(line[i]);
+				if(line[i].substring(0,1)=="^"){
+					hostlist[j]=line[i];
+					
+					if(j>0){
+						var setvalue={};
+						setvalue[hostlist[j-1]]=rglist;
+						chrome.storage.local.set(setvalue, function() {
+							console.log('save '+setvalue);
+							
+						});
+					}
+					
+					html+=(rgxxx_e+rgxxx_e+rggroup_s+rghost_s+rghost_text_s+hostlist[j]+rgxxx_e+rghost_icon+rgxxx_e+rglist_itemadd+rglist_s);
+					
+					j++;
+					rglist=new Array();
+					n=0;
+					
+				}
+				else if(line[i].substring(0,1)=="\t"){
+					rglist[n]=line[i].substring(1);
+					
+					html+=(rglist_item_s+rglist_item_text_s+"<xmp>"+rglist[n]+"</xmp>"+rgxxx_e+rglist_item_icon+rgxxx_e);
+					
+					n++;	
+				}
+			}
+			if(j>0){
+				var setvalue={};
+				setvalue[hostlist[j-1]]=rglist;
+				chrome.storage.local.set(setvalue, function() {
+					console.log('save '+setvalue);
+					
+				});
+			}
+			html+=(rgxxx_e+rgxxx_e);
+			
+			//console.log(hostlist);
+			chrome.storage.local.set({'hostlist':hostlist}, function() {
+				console.log('save hostlist:'+hostlist);
+			});
+			
+			//console.log(html);
+			chrome.storage.local.set({"html":html}, function() {
+				console.log('save html:'+html);
+				
+				updataregex();
+			});
+			
+		};
+
+	
+		reader.readAsText(file,'gb2312');
+		console.log("read");
+	}
+});
